@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const colors = {
   border: '#0075ff',
@@ -22,6 +22,10 @@ const Label = styled.label`
   padding: 10px;
   min-height: 40px;
   cursor: pointer;
+
+  ${props => props.valid === 'false' && css`
+    color: ${colors.error};
+  `}
 `;
 
 const InputGroup = styled.div`
@@ -44,6 +48,14 @@ const Input = styled.input`
     outline: none;
     box-shadow: 3px 0 30px rgba(163, 163, 163, .4);
   }
+
+  ${props => props.valid === 'true' && css`
+    border-color: transparent;
+  `}
+
+  ${props => props.valid === 'false' && css`
+    border-color: ${colors.error} !important;
+  `}
 `;
 
 const FeedbackError = styled.p`
@@ -51,6 +63,15 @@ const FeedbackError = styled.p`
   margin-bottom: 0;
   color: ${colors.error};
   display: none;
+
+  ${props => props.valid === 'true' && css`
+    display: none;
+  `}
+
+  ${props => props.valid === 'false' && css`
+    display: block;
+    color: ${colors.error};
+  `}
 `;
 
 const IconValidation = styled.div`
@@ -60,6 +81,20 @@ const IconValidation = styled.div`
   z-index: 100;
   font-size: 16px;
   opacity: 0;
+
+  svg {
+    display: block;
+  }
+
+  ${props => props.valid === 'false' && css`
+    opacity: 1;
+    color: ${colors.error};
+  `}
+
+  ${props => props.valid === 'true' && css`
+    opacity: 1;
+    color: ${colors.success};
+  `}
 `;
 
 const TermsContainer = styled.div`
