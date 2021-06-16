@@ -12,11 +12,25 @@ export default function App() {
   const [phone, setPhone] = useState({field: '', valid: null});
 
   const expressions = {
-    user: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
+    user: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
     name: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
     password: /^.{4,12}$/, // 4 a 12 digitos.
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     phone: /^\d{7,14}$/ // 7 a 14 numeros.
+  }
+
+  const validatePasswordsHandler = () => {
+    if (password.field.length > 0) {
+      if (password.field !== repassword.field) {
+        setRepassword((prevState) => {
+          return {...prevState, valid: 'false'}
+        })
+      } else {
+        setRepassword((prevState) => {
+          return {...prevState, valid: 'true'}
+        })
+      }
+    }
   }
 
   return (
@@ -30,7 +44,7 @@ export default function App() {
           label="Usuario"
           placeholder="john117"
           feedbackError="El usuario tiene que ser de 4 a 16 dígitos, y solo puede contener números, letras y guion bajo."
-          expression={expressions.user}
+          validation={expressions.user}
         />
         <Input
           type="text"
@@ -40,7 +54,7 @@ export default function App() {
           label="Nombre"
           placeholder="John Wick"
           feedbackError="El nombre solo puede contener letras y espacios."
-          expression={expressions.name}
+          validation={expressions.name}
         />
         <Input
           type="password"
@@ -49,7 +63,7 @@ export default function App() {
           setState={setPassword}
           label="Contraseña"
           feedbackError="La contraseña tiene que ser de 4 a 12 dígitos."
-          expression={expressions.password}
+          validation={expressions.password}
         />
         <Input
           type="password"
@@ -59,6 +73,7 @@ export default function App() {
           label="Repetir Contraseña"
           feedbackError="Ambas contraseñas deben ser iguales."
           // Puedes pasar una función a ejecutar cuando haya un cambio en el input.
+          validatePasswords={validatePasswordsHandler}
         />
         <Input
           type="email"
@@ -68,7 +83,7 @@ export default function App() {
           label="Correo Electrónico"
           placeholder="john117@email.com"
           feedbackError="El correo solo puede contener letras, números, puntos, guiones y guion bajo."
-          expression={expressions.email}
+          validation={expressions.email}
         />
         <Input
           type="tel"
@@ -78,7 +93,7 @@ export default function App() {
           label="Teléfono"
           placeholder="4491234567"
           feedbackError="El teléfono solo puede contener números y el máximo son 14 dígitos."
-          expression={expressions.phone}
+          validation={expressions.phone}
         />
         <TermsContainer>
           <Label>
