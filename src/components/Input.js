@@ -2,13 +2,13 @@ import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { Label, InputGroup, Input, FeedbackError, IconValidation } from '../elements/Forms';
 
 export default function InputComponent({ type, name, state, setState, label, placeholder, feedbackError, validation, validatePasswords }) {
-  const onChangeHandler = (e) => {
+  const inputChangeHandler = (e) => {
     setState({...state, field: e.target.value});
   }
 
   const validationHandler = () => {
-    if(validation) {
-      if(validation.test(state.field)) {
+    if (validation) {
+      if (validation.test(state.field)) {
         setState({...state, valid: 'true'});
       } else {
         setState({...state, valid: 'false'});
@@ -29,7 +29,7 @@ export default function InputComponent({ type, name, state, setState, label, pla
           placeholder={placeholder}
           id={name}
           value={state.field}
-          onChange={onChangeHandler}
+          onChange={inputChangeHandler}
           onKeyUp={validationHandler}
           onBlur={validationHandler}
           valid={state.valid}
@@ -40,7 +40,6 @@ export default function InputComponent({ type, name, state, setState, label, pla
             : <FaTimesCircle />
           }
         </IconValidation>
-        <IconValidation><FaCheckCircle /></IconValidation>
       </InputGroup>
       <FeedbackError valid={state.valid}>{feedbackError}</FeedbackError>
     </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Form, Label, TermsContainer, CenteredButtonContainer, Button, MessageSuccess, MessageError } from './elements/Forms';
 import { FaExclamationTriangle } from 'react-icons/fa';
+import { Form, Label, TermsContainer, CenteredButtonContainer, Button, MessageSuccess, MessageError } from './elements/Forms';
 import Input from './components/Input';
 
 export default function App() {
@@ -10,6 +10,7 @@ export default function App() {
   const [repassword, setRepassword] = useState({field: '', valid: null});
   const [email, setEmail] = useState({field: '', valid: null});
   const [phone, setPhone] = useState({field: '', valid: null});
+  const [terms, setTerms] = useState(false);
 
   const expressions = {
     user: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
@@ -31,6 +32,10 @@ export default function App() {
         })
       }
     }
+  }
+
+  const changeTermsHandler = (e) => {
+    setTerms(e.target.checked);
   }
 
   return (
@@ -97,7 +102,13 @@ export default function App() {
         />
         <TermsContainer>
           <Label>
-            <input type="checkbox" name="terms" id="terms" />
+            <input
+              type="checkbox"
+              name="terms"
+              id="terms"
+              checked={terms}
+              onChange={changeTermsHandler}
+            />
             Acepto los Términos y Condiciones
           </Label>
         </TermsContainer>

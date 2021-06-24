@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 const colors = {
   border: '#0075ff',
   error: '#bb2929',
-  success: '#1ed12d',
+  success: '#1ed12d'
 }
 
 const Form = styled.form`
@@ -36,7 +36,7 @@ const InputGroup = styled.div`
 const Input = styled.input`
   width: 100%;
   background-color: white;
-  border-radius:  3px;
+  border-radius: 3px;
   height: 45px;
   line-height: 45px;
   padding: 0 40px 0 10px;
@@ -103,6 +103,10 @@ const TermsContainer = styled.div`
   input {
     margin-right: 10px;
   }
+
+  @media (max-width: 800px) {
+    grid-column: span 1;
+  }
 `;
 
 const CenteredButtonContainer = styled.div`
@@ -110,11 +114,15 @@ const CenteredButtonContainer = styled.div`
   flex-direction: column;
   align-items: center;
   grid-column: span 2;
+
+  @media (max-width: 800px) {
+    grid-column: span 1;
+  }
 `;
 
 const Button = styled.button`
   height: 45px;
-  line-height: 45px ;
+  line-height: 45px;
   width: 30%;
   background-color: black;
   color: white;
@@ -151,7 +159,6 @@ const MessageError = styled.div`
     margin-left: 10px;
   }
 `;
-
 
 export {
   Form,
