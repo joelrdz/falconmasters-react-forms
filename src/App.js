@@ -11,6 +11,7 @@ export default function App() {
   const [email, setEmail] = useState({field: '', valid: null});
   const [phone, setPhone] = useState({field: '', valid: null});
   const [terms, setTerms] = useState(false);
+  const [formValid, setFormValid] = useState(null);
 
   const expressions = {
     user: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
@@ -38,9 +39,34 @@ export default function App() {
     setTerms(e.target.checked);
   }
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    if (
+      user.valid === 'true' &&
+      name.valid === 'true' &&
+      password.valid === 'true' &&
+      repassword.valid === 'true' &&
+      email.valid === 'true' &&
+      phone.valid === 'true' &&
+      terms
+    ) {
+      setFormValid(true);
+      setUser({field: '', valid: null});
+      setName({field: '', valid: null});
+      setPassword({field: '', valid: null});
+      setRepassword({field: '', valid: null});
+      setEmail({field: '', valid: null});
+      setPhone({field: '', valid: null});
+      setTerms(false);
+    } else {
+      setFormValid(false);
+    }
+  }
+
   return (
     <main>
-      <Form action="">
+      <Form action="" onSubmit={submitHandler}>
         <Input
           type="text"
           name="user"
@@ -112,7 +138,7 @@ export default function App() {
             Acepto los Términos y Condiciones
           </Label>
         </TermsContainer>
-        {false &&
+        {formValid === false &&
           <MessageError>
             <p>
               <FaExclamationTriangle />
@@ -122,7 +148,7 @@ export default function App() {
         }
         <CenteredButtonContainer>
           <Button type="submit">Enviar</Button>
-          <MessageSuccess>Formulario enviado exitosamente!</MessageSuccess>
+          {formValid && <MessageSuccess>Formulario enviado exitosamente!</MessageSuccess>}
         </CenteredButtonContainer>
       </Form>
     </main>

@@ -140,7 +140,6 @@ const Button = styled.button`
 const MessageSuccess = styled.p`
   font-size: 14px;
   color: ${colors.success};
-  display: none;
 `;
 
 const MessageError = styled.div`
